@@ -55,6 +55,9 @@ tasks.withType(JavaCompile) {
 repositories {
     jcenter()
     mavenLocal()
+    maven {
+        url 'https://mifos.jfrog.io/mifos/libs-snapshot/'
+    }
 }
 
 dependencyManagement {
@@ -89,10 +92,27 @@ publishing {
             from components.java
             groupId project.group
             artifactId project.name
-            version project.version
+            version findProperty('versionFromGitTag') ?: project.version
         }
     }
 }
+
+String artifactoryRepoKey = findProperty('versionFromGitTag') ? 'libs-release-local' : 'libs-snapshot-local'
+artifactory {
+    contextUrl = System.getenv("ARTIFACTORY_URL")
+    publish {
+        repository {
+            repoKey = artifactoryRepoKey
+            username = System.getenv("ARTIFACTORY_USER")
+            password = System.getenv("ARTIFACTORY_PASSWORD")
+        }
+
+        defaults {
+            publications ('apiPublication')
+        }
+    }
+}
+
 
 license {
     header rootProject.file('HEADER')
