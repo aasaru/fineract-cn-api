@@ -86,24 +86,22 @@ jar {
     from sourceSets.main.allSource
 }
 
-
 publishing {
     publications {
         apiPublication(MavenPublication) {
             from components.java
             groupId project.group
             artifactId project.name
-            version findProperty('versionFromGitTag') ?: project.version
+            version findProperty('externalVersion') ?: project.version
         }
     }
 }
 
-String artifactoryRepoKey = findProperty('versionFromGitTag') ? 'libs-release-local' : 'libs-snapshot-local'
 artifactory {
     contextUrl = System.getenv("ARTIFACTORY_URL")
     publish {
         repository {
-            repoKey = artifactoryRepoKey
+            repoKey = project.property('artifactoryRepoKey')
             username = System.getenv("ARTIFACTORY_USER")
             password = System.getenv("ARTIFACTORY_PASSWORD")
         }
@@ -113,6 +111,7 @@ artifactory {
         }
     }
 }
+artifactoryPublish.dependsOn('clean','publishToMavenLocal')
 
 
 license {
