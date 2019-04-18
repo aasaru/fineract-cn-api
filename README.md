@@ -1,8 +1,4 @@
-TODO switch to apache!
-
-[![Build Status](https://api.travis-ci.com/aasaru/fineract-cn-api.svg?branch=travis)](https://travis-ci.com/aasaru/fineract-cn-api)
-
-# Apache Fineract CN Api
+# Apache Fineract CN Api [![Build Status](https://api.travis-ci.com/apache/fineract-cn-api.svg?branch=develop)](https://travis-ci.com/apache/fineract-cn-api)
 
 [![Join the chat at https://gitter.im/mifos-initiative/mifos.io](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mifos-initiative/mifos.io?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
